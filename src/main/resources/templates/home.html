@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p>Hello, user</p>
+    <div layout:fragment="content">
+        <div class="card">
+            <img class="card-img-top" src="holder.js/100x180/" alt="">
+            <div class="card-body">
+                <h4 class="card-title">Messages</h4>
+                <p class="card-text">
+                    <a class="btn btn-primary" th:href="@{/messages}" role="button">Visit messages</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

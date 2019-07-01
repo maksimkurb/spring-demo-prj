@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <title>Home page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content">
+    <p th:text="'Hello, ' + ${#httpServletRequest.remoteUser} + '!'">Hello, %user%</p>
+
+    <p>Messages:</p>
+
+    <div class="media border rounded mb-1 p-2" th:each="msg: ${messages}">
+        <div class="media-body">
+            <h6 th:text="${msg.getCreatedBy() != null ? msg.getCreatedBy().getUsername() : 'Unknown createdBy'}">John doe</h6>
+            <span th:text="${msg.getBody()}">So beautiful world</span>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Send message</h4>
+            <p class="card-text">
+            <form action="#" th:action="@{/messages}" th:object="${message}" method="post">
+
+                <div class="alert alert-danger" th:if="${#fields.hasErrors()}" role="alert">
+                    <strong>Failed to send message:</strong>
+                    <ul>
+                        <li th:each="err: ${#fields.detailedErrors()}">
+                            <strong th:text="${#strings.capitalize(err.getFieldName())+': '}">Body: </strong>
+                            <span th:text="${err.getMessage()}">can't be empty</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label th:for="*{body}">Message body</label>
+                    <input type="text" class="form-control" th:field="*{body}" aria-describedby="bodyHelp"
+                           placeholder="Enter message body">
+                    <small id="bodyHelp" class="form-text text-muted">Must contain 3..100 chars</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send message</button>
+            </form>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

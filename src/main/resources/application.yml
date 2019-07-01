@@ -1,0 +1,16 @@
+server:
+  port: 9000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/db?user=user&password=pass
+  liquibase:
+      change-log: classpath:db/db.changelog-master.xml
+  jpa:
+    generate-ddl: false # we use liquibase
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true # https://stackoverflow.com/questions/22256124/cannot-create-a-database-table-named-user-in-postgresql
+        temp:
+          use_jdbc_metadata_defaults: false # https://stackoverflow.com/questions/49680199/java-lang-reflect-invocationtargetexception-null
+    show-sql: true

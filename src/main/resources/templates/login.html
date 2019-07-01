@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <title>Page title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Authentication</h4>
+            <div class="card-text">
+
+                <div th:if="${param.error}">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Login failed: </strong>
+                        <span th:text="${param.error}"></span>
+                    </div>
+                </div>
+                <div th:if="${param.logout}">
+
+                    <div class="alert info" role="alert">
+                        <strong>You have been logged out.</strong>
+                    </div>
+                </div>
+
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label th:for="username">Username</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label th:for="password">Password</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
